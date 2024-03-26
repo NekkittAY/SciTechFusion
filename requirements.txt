@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pydantic
+sqlalchemy
+aiosqlite
+numpy
+scipy
+sympy
+matplotlib
+jax[cpu]
+ortools
