@@ -7,6 +7,13 @@ from .models import FunctionsUpdate, FunctionsData
 class FunctionTable:
     @classmethod
     async def insert_data(cls, data: FunctionsUpdate) -> int:
+        """
+        Insert data in Function table async function
+
+        :param data: data, FunctionUpdate
+        :return: id, int
+        """
+
         async with async_session() as session:
             data = data.model_dump()
             new_data = Functions(**data)
@@ -16,6 +23,12 @@ class FunctionTable:
 
     @classmethod
     async def show_data(cls) -> list[FunctionsData]:
+        """
+        Select all data from Function table async function
+
+        :return: all data, list[FunctionData]
+        """
+
         async with async_session() as session:
             table_data = select(Functions)
             result = await session.execute(table_data)
@@ -27,6 +40,14 @@ class FunctionTable:
     async def update_data(cls,
                           data_id: int,
                           update_data: FunctionsUpdate) -> int:
+        """
+        Update data in Function table async function
+
+        :param data_id: id of data row, int
+        :param update_data: data to update, FunctionUpdate
+        :return: data id, int
+        """
+
         async with async_session() as session:
             data = update(Functions).where(Functions.id == data_id).values(update_data.model_dump())
             await session.execute(data)
@@ -35,6 +56,13 @@ class FunctionTable:
 
     @classmethod
     async def delete_data(cls, data_id: int) -> int:
+        """
+        Delete data for Function table async function
+
+        :param data_id: id of data row, int
+        :return: data id, int
+        """
+
         async with async_session() as session:
             table_data = select(Functions).where(Functions.id == data_id)
             data = await session.execute(table_data)

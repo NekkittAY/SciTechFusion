@@ -3,6 +3,23 @@ from scipy.interpolate import KroghInterpolator, CubicSpline, BarycentricInterpo
 
 
 def interpolate(x: list, y: list, x0: float, method: str = "linear") -> float:
+    """
+    Interpolate function
+
+    Methods of interpolation:
+    1. Linear
+    2. Krogh method
+    3. Cubic splines method
+    4. Barycentric interpolation method
+    5. Alima method
+
+    :param x: x values, list
+    :param y: y values, list
+    :param x0: value for interpolation function, float
+    :param method: method of interpolation, string
+    :return: result of interpolation by x0 value, float
+    """
+
     x = array(x)
     y = array(y)
 

@@ -7,6 +7,10 @@ from backend.api.routes.Math_Module_API.routes import router as math_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """
+    lifespan async function
+    """
+
     await delete_tables()
     print("DB dropped")
     await create_tables()

@@ -7,11 +7,36 @@ from ortools.linear_solver import pywraplp
 
 
 def lambdify_func(func: str, sym: str):
+    """
+    Lambdify function
+
+    :param func: function for lambdify, string
+    :param sym: symbols - arguments, string
+    :return: lambdified function
+    """
+
     f = lambdify(symbols(sym), func, 'jax')
     return f
 
 
-def optimize_func(func: str, sym: str, x0: list, method='BFGS') -> OptimizeResult:
+def optimize_func(func: str, sym: str, x0: list, method: str ='BFGS') -> OptimizeResult:
+    """
+    Optimization function
+
+    Optimizing methods:
+    1. Least Squares method
+    2. BFGS method / L-BFGS-B method
+    3. Nelder-Mead method
+    4. Powell method
+    5. and other
+
+    :param func: function for optimization, string
+    :param sym: symbols in function, string
+    :param x0: initial values, list
+    :param method: methods for optimization
+    :return: Optimize result
+    """
+
     x0 = np.array(x0)
     f = lambdify_func(func, sym)
 
@@ -23,7 +48,21 @@ def optimize_func(func: str, sym: str, x0: list, method='BFGS') -> OptimizeResul
     return result
 
 
-def bounds_optimize_func(func: str, sym: str, bounds: list, method='shgo') -> OptimizeResult:
+def bounds_optimize_func(func: str, sym: str, bounds: list, method: str ='shgo') -> OptimizeResult:
+    """Optimization function with bounds methods
+
+    Optimizing methods:
+    1. Dual annealing method
+    2. Shgo method
+    3. Brute method
+
+    :param func: function for optimization, string
+    :param sym: symbols in function, string
+    :param bounds: bounds values, list
+    :param method: methods for optimization
+    :return: Optimize result
+    """
+
     bounds = np.array(bounds)
     f = lambdify_func(func, sym)
 
@@ -40,6 +79,15 @@ def bounds_optimize_func(func: str, sym: str, bounds: list, method='shgo') -> Op
 
 
 def optimize_or(func: str, lin_cons: list, sym: str, bounds: list) -> np.ndarray:
+    """OR-Tools optimization function
+
+    :param func: function for optimization, string
+    :param lin_cons: linear conditions, list
+    :param sym: symbols in function, string
+    :param bounds: bounds conditions, list
+    :return: Optimization result, np.ndarray
+    """
+
     model = mathopt.Model(name="MatOpt")
 
     for i in range(len(sym)):
@@ -63,11 +111,20 @@ def LP_solve(sym: list,
              sym_bounds: list,
              sym_coeff: list,
              sym_cs_coeff: list,
-             cs_bounds: list):
+             cs_bounds: list) -> dict:
+    """Linear programming OR-Tools function
+
+    :param sym: arguments for conditions, list
+    :param sym_bounds: bounds conditions for args, list
+    :param sym_coeff: coefficients for args in object function, list
+    :param sym_cs_coeff: coefficients for args in constraint, list
+    :param cs_bounds: constraint bounds values, list
+    :return: Result of solving, dict
+    """
 
     solver = pywraplp.Solver.CreateSolver("GLOP")
     if not solver:
-        return
+        return {}
 
     for i in range(len(sym)):
         exec(f'{sym[i]} = solver.NumVar({sym_bounds[i][0]}, {sym_bounds[i][1]}, "{sym[i]}")')
