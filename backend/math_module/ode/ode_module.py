@@ -15,7 +15,7 @@ def lambdify_func(func: str):
     return f
 
 
-def numerical_solve(func: str, y0: float, t0: float, tf: float, method: str ="RK45") -> tuple:
+def numerical_solve_ode(func: str, y0: float, t0: float, tf: float, method: str = "RK45") -> tuple:
     """
     Numerical solve ODE function
 

@@ -19,7 +19,7 @@ def lambdify_func(func: str, sym: str):
     return f
 
 
-def optimize_func(func: str, sym: str, x0: list, method: str ='BFGS') -> OptimizeResult:
+def optimize_func(func: str, sym: str, x0: list, method: str = 'BFGS') -> OptimizeResult:
     """
     Optimization function
 
@@ -48,7 +48,7 @@ def optimize_func(func: str, sym: str, x0: list, method: str ='BFGS') -> Optimiz
     return result
 
 
-def bounds_optimize_func(func: str, sym: str, bounds: list, method: str ='shgo') -> OptimizeResult:
+def bounds_optimize_func(func: str, sym: str, bounds: list, method: str = 'shgo') -> OptimizeResult:
     """Optimization function with bounds methods
 
     Optimizing methods:
@@ -78,7 +78,7 @@ def bounds_optimize_func(func: str, sym: str, bounds: list, method: str ='shgo')
     return result
 
 
-def optimize_or(func: str, lin_cons: list, sym: str, bounds: list) -> np.ndarray:
+def optimize_or(func: str, lin_cons: list, sym: list, bounds: list) -> np.ndarray:
     """OR-Tools optimization function
 
     :param func: function for optimization, string
