@@ -3,6 +3,7 @@ uvicorn
 pydantic
 sqlalchemy
 aiosqlite
+redis
 numpy
 scipy
 sympy

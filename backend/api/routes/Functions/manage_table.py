@@ -22,18 +22,19 @@ class FunctionTable:
             return new_data.id
 
     @classmethod
-    async def show_data(cls) -> list[FunctionsData]:
+    async def show_data(cls, data_id: int) -> FunctionsData:
         """
         Select all data from Function table async function
 
-        :return: all data, list[FunctionData]
+        :param data_id: id of data, int
+        :return: all data, FunctionData
         """
 
         async with async_session() as session:
-            table_data = select(Functions)
+            table_data = select(Functions).where(Functions.id == data_id)
             result = await session.execute(table_data)
-            data_content = result.scalars().all()
-            data = [FunctionsData.model_validate(d) for d in data_content]
+            data_content = result.scalars().one()
+            data = FunctionsData.model_validate(data_content)
             return data
 
     @classmethod

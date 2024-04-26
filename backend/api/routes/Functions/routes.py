@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, status
 from .models import FunctionsUpdate, FunctionsData
 from .manage_table import FunctionTable
+from backend.redis.redis_main import get_data, set_data
+import json
 
 
 router = APIRouter()
@@ -28,14 +30,23 @@ async def function_insert_data(data: FunctionsUpdate = Depends()) -> dict:
             description="Select all from Functions table",
             response_description="All data in table",
             status_code=status.HTTP_200_OK)
-async def functions_show_data() -> list[FunctionsData]:
+async def functions_show_data(data_id: int) -> FunctionsData:
     """
     Get all data from Function table async function
 
-    :return: all data, list[FunctionData]
+    :param data_id: id of data, int
+    :return: all data, FunctionData
     """
 
-    data = await FunctionTable.show_data()
+    data = await get_data(data_id)
+
+    if data is not None:
+        data = FunctionsData.model_validate(json.loads(data))
+        return data
+
+    data = await FunctionTable.show_data(data_id)
+    await set_data(data_id, data.model_dump_json())
+
     return data
 
 
