@@ -13,6 +13,7 @@ Welcome to the SciTechFusion repository! This project showcases the fusion of sc
 - **PyDantic**: For data validation and settings management
 - **Uvicorn**: ASGI server implementation
 - **SQLite**: Embedded relational database management system
+- **Redis**: For cache data from a database
 
 ### Description:
 This repository serves as a demonstration of leveraging a diverse set of Python technologies for both scientific and web development purposes. The SciTechFusion project combines the power of various libraries to showcase the versatility and capabilities of Python in different domains.
@@ -29,6 +30,7 @@ This repository serves as a demonstration of leveraging a diverse set of Python 
         - **ode** - Ordinary differential equation solvers
         - **optimize** - Optimization algorithms
         - **overall_math** - Miscellaneous mathematical functions
+    - **redis** - module for defining redis and functions
 
 ### Getting Started:
 1. Clone this repository.
